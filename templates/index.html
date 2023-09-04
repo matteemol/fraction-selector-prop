@@ -1,0 +1,44 @@
+{% extends 'main.html' %}
+
+{% block body %} 
+<div class="box">
+  <h3 class="title">Fraction selection</h3>
+<!--Define the form where the buttons "browse" and "upload" are linked-->
+
+<div class="btn">
+<!--In a same fashion, the link is formatted through a label element-->
+      <label for="download" class="btn-download">
+        <a id="download" href="{{ url_for('download') }}">Get template</a>
+      </label>
+    </div>  
+
+    <form action="{{ url_for('upload') }}" method="post" enctype="multipart/form-data">
+
+    <div class="btn">
+<!--This div is a kind of mask for the input button. The standard style is hidden and a label is shown instead-->
+      <label for="files" class="btn-browse">Upload data</label>
+      <input id="files" style="display:none" type="file" name="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+    </div>
+
+    <div id="div-upload" class="btn" style="opacity:0">
+<!--Same here. Buttons are not easily formatted so a label is used instead-->
+      <label id="label-upload" for="upload" class="btn-upload"></label>
+      <input id="btn-upload" type="submit" value="Calculate" class="btn-upload" style="visibility:hidden">
+    </div>  
+
+  </form>
+<!--The form ends here-->
+</div>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
+<script>
+  const input = document.querySelector("input")
+  
+  input.addEventListener("change", displayUpload);
+  
+  function displayUpload() {
+    console.log("Function called")
+    document.getElementById("div-upload").style.opacity = 1;
+    document.getElementById("btn-upload").style.visibility = "visible";
+  }
+</script>
+{% endblock %}
